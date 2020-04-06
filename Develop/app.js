@@ -24,3 +24,17 @@ app.get("/", function(req, res){
 app.get("/notes", function(req, res){
     res.sendFile(path.join(__dirname, "./public/notes.html"))
 });
+
+// API to store objects as JSON 
+app.get("/api/notes", function(req, res){
+    fs.readFile(db, "utf8").then(function (data) {
+        data = JSON.parse(data)
+        return res.json(data);
+    })
+})
+
+//POST New note to server
+app.post("/api/notes", function(req, res){
+    let createdNote = req.body;
+    console.log(createdNote);
+})
