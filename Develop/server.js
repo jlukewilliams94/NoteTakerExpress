@@ -27,7 +27,7 @@ app.get("/notes", function(req, res){
 
 // API to store objects as JSON 
 app.get("/api/notes", function(req, res){
-    fs.readFile(db, "utf8").then(function (data) {
+    fs.readFile("./db/db.json","utf8").then(function (data) {
         data = JSON.parse(data)
         return res.json(data);
     })
