@@ -34,11 +34,14 @@ app.get("/api/notes", function(req, res){
 //POST New note to server
 app.post("/api/notes", function(req, res){
     let createdNote = req.body;
+    noteArray[noteArray.length - 1].id=noteArray.length-1;
     console.log(createdNote);
     noteArray.push(createdNote)
     res.send("Note Created")
     res.json(createdNote)
+   
 });
+
 
 
 
