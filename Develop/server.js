@@ -3,6 +3,7 @@ let express = require("express");
 let path = require("path");
 let fs = require("fs");
 
+let noteArray = []
 // Tells node we are creating an express server
 let app = express();
 
@@ -27,17 +28,24 @@ app.get("/notes", function(req, res){
 
 // API to store objects as JSON 
 app.get("/api/notes", function(req, res){
-    fs.readFile("./db/db.json","utf8").then(function (data) {
-        data = JSON.parse(data)
-        return res.json(data);
-    })
+   return res.json(noteArray)
 })
 
 //POST New note to server
 app.post("/api/notes", function(req, res){
     let createdNote = req.body;
     console.log(createdNote);
+    noteArray.push(createdNote)
+    res.send("Note Created")
+    res.json(createdNote)
 });
+
+
+
+
+
+
+
 
 app.listen(PORT, function() {
     console.log("App listening on PORT: " + PORT);
