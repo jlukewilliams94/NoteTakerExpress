@@ -1,7 +1,6 @@
 let db = require("./db/db.json");
 let express = require("express");
 let path = require("path");
-let fs = require("fs");
 
 // Tells node we are creating an express server
 let app = express();
@@ -43,14 +42,14 @@ app.post("/api/notes", function(req, res){
     res.json(createdNote) 
 });
 
-
+//DELETE Note from Server
 app.delete("/api/notes/:id", function(req, res){
     db = db.filter(note => note.id !== parseInt(req.params.id))
     console.log(db)
     res.json(db)
 })
 
-
+// Notifies the Client PORT is connected
 app.listen(PORT, function() {
     console.log("App listening on PORT: " + PORT);
 });
