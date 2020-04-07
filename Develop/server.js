@@ -31,6 +31,11 @@ app.get("/api/notes", function(req, res){
    return res.json(noteArray)
 })
 
+// API to store objects as JSON 
+app.get("/api/notes/:id", function(req, res){
+    return res.json(noteArray)
+ })
+
 //POST New note to server
 app.post("/api/notes", function(req, res){
     let createdNote = req.body;
@@ -42,7 +47,13 @@ app.post("/api/notes", function(req, res){
 });
 
 
+app.delete("/api/notes/:id", function(req, res){
+    let deletedNote = req.param.id
+    console.log(deletedNote)
 
+    noteArray = JSON.parse(noteArray)
+    noteArray.splice(deletedNote);
+})
 
 
 
