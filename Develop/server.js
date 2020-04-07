@@ -3,7 +3,6 @@ let express = require("express");
 let path = require("path");
 let fs = require("fs");
 
-let noteArray = []
 // Tells node we are creating an express server
 let app = express();
 
@@ -28,38 +27,30 @@ app.get("/notes", function(req, res){
 
 // API to store objects as JSON 
 app.get("/api/notes", function(req, res){
-   return res.json(noteArray)
+   return res.json(db)
 })
 
-// API to store objects as JSON 
-app.get("/api/notes/:id", function(req, res){
-    return res.json(noteArray)
- })
 
 //POST New note to server
 app.post("/api/notes", function(req, res){
-    let createdNote = req.body;
-    console.log(createdNote);
-    noteArray.push(createdNote)
-    res.send("Note Created")
-    res.json(createdNote)
-   
+    const createdNote = {
+        title: req.body.title,
+        text: req.body.text,
+        id: db.length + 1
+    };
+
+    db.push(createdNote)
+    res.json(createdNote) 
 });
 
 
 app.delete("/api/notes/:id", function(req, res){
-    let deletedNote = req.param.id
-    console.log(deletedNote)
-
-    noteArray = JSON.parse(noteArray)
-    noteArray.splice(deletedNote);
+    db = db.filter(note => note.id !== parseInt(req.params.id))
+    console.log(db)
+    res.json(db)
 })
-
-
-
-
 
 
 app.listen(PORT, function() {
     console.log("App listening on PORT: " + PORT);
-  });
+});
